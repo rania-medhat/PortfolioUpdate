@@ -1,0 +1,14 @@
+<section class="login">
+  <div class="login-card">
+    <h2 class="section-title text-center">Admin Login</h2>
+    <p class="text-center">Sign in with the admin Google account to open the dashboard.</p>
+
+    <div class="google-button" #googleButton></div>
+
+    @if (error()) {
+      <p class="login-error" role="alert">{{ error() }}</p>
+    }
+
+    <a class="back-link" routerLink="/home">&larr; Back to portfolio</a>
+  </div>
+</section>

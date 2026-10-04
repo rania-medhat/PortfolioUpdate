@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نور الهدى | مهندسة برمجيات ومدربة تقنية - Portfolio</title>
+  
+  <!-- Google Fonts: Cairo, Tajawal & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              pink: '#ec4899',
+              amber: '#f59e0b'
+            }
+          },
+          animation: {
+            'blob': 'blob 7s infinite',
+            'float': 'float 4s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2.5s infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -40px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.95)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4' },
+              '50%': { opacity: '0.85' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      font-family: 'Cairo', sans-serif;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7c3aed;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9061f9;
+    }
+
+    /* Glassmorphism Classes */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .dark .glass-card {
+      background: rgba(17, 24, 39, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+    }
+    .dark .glass-nav {
+      background: rgba(11, 15, 25, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Glowing interactive cursor pointer */
+    #cursor-glow {
+      pointer-events: none;
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.08) 40%, transparent 70%);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: transform 0.08s ease-out, opacity 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-[#0a0f1d] text-slate-800 dark:text-slate-100 transition-colors duration-300 antialiased overflow-x-hidden relative selection:bg-brand-600 selection:text-white">
+
+  <!-- Interactive Background Glow & Canvas for particles -->
+  <div id="cursor-glow" class="hidden md:block"></div>
+  <canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40 dark:opacity-30"></canvas>
+
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-cyan p-0.5 shadow-lg shadow-brand-500/25 transition-transform duration-300 group-hover:scale-105">
+          <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center text-white font-black text-xl">
+            <span class="text-brand-400 group-hover:rotate-12 transition-transform duration-300">&lt;/&gt;</span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-lg leading-tight tracking-tight text-slate-900 dark:text-white" data-i18n="logo_name">نور الهدى د.</span>
+          <span class="text-xs text-brand-600 dark:text-brand-400 font-semibold tracking-wider" data-i18n="logo_sub">Full Stack & Tech Trainer</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600 dark:text-slate-300">
+        <a href="#about" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav_about">من أنا</a>
+        <a href="#skills" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav_skills">المهارات</a>
+        <a href="#portfolio" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav_portfolio">أعمالي</a>
+        <a href="#services" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav_services">الخدمات والتدريب</a>
+        <a href="#testimonials" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav_reviews">التقييمات</a>
+        <a href="#contact" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav_contact">تواصل معي</a>
+      </nav>
+
+      <!-- Action Utilities (Theme, Lang, Download Template, Mobile Toggle) -->
+      <div class="flex items-center gap-3">
+        <!-- Language Switcher -->
+        <button id="lang-btn" title="تبديل اللغة / Switch Language" class="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white/70 dark:bg-slate-800/80 text-xs font-bold hover:border-brand-500 hover:text-brand-600 transition shadow-sm">
+          EN
+        </button>
+
+        <!-- Theme Toggle (Dark / Light) -->
+        <button id="theme-btn" title="تبديل المظهر" class="w-10 h-10 rounded-xl border border-slate-300 dark:border-slate-700 bg-white/70 dark:bg-slate-800/80 flex items-center justify-center text-slate-700 dark:text-amber-400 hover:border-brand-500 transition shadow-sm">
+          <i class="fa-solid fa-moon text-base dark:hidden"></i>
+          <i class="fa-solid fa-sun text-base hidden dark:block"></i>
+        </button>
+
+        <!-- CV Download Action -->
+        <a href="#contact" class="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-500/20 transition-transform active:scale-95">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span data-i18n="cv_download">تحميل السيرة (CV)</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-toggle" class="md:hidden w-10 h-10 rounded-xl border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pt-3 pb-6 glass-card border-t border-slate-200 dark:border-slate-800 flex flex-col gap-4 text-center">
+      <a href="#about" class="py-2 text-slate-700 dark:text-slate-200 hover:text-brand-500 font-semibold" data-i18n="nav_about">من أنا</a>
+      <a href="#skills" class="py-2 text-slate-700 dark:text-slate-200 hover:text-brand-500 font-semibold" data-i18n="nav_skills">المهارات</a>
+      <a href="#portfolio" class="py-2 text-slate-700 dark:text-slate-200 hover:text-brand-500 font-semibold" data-i18n="nav_portfolio">أعمالي</a>
+      <a href="#services" class="py-2 text-slate-700 dark:text-slate-200 hover:text-brand-500 font-semibold" data-i18n="nav_services">الخدمات والتدريب</a>
+      <a href="#testimonials" class="py-2 text-slate-700 dark:text-slate-200 hover:text-brand-500 font-semibold" data-i18n="nav_reviews">التقييمات</a>
+      <a href="#contact" class="py-2 text-slate-700 dark:text-slate-200 hover:text-brand-500 font-semibold" data-i18n="nav_contact">تواصل معي</a>
+      <button onclick="downloadCurrentPage()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-bold text-sm shadow">
+        <i class="fa-solid fa-download me-2"></i> <span data-i18n="btn_download_template">تنزيل ملف القالب كاملاً</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-28">
+    <section class="min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <!-- Glow ambient spheres -->
+      <div class="absolute top-1/4 -right-20 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl pointer-events-none animate-blob"></div>
+      <div class="absolute bottom-10 -left-20 w-96 h-96 bg-accent-cyan/15 rounded-full blur-3xl pointer-events-none animate-blob animation-delay-2000"></div>
+
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Text & Intro Column -->
+        <div class="lg:col-span-7 text-center lg:text-start space-y-6">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-brand-500/30 text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400 animate-pulse">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+            <span data-i18n="hero_status">متاحة للمشاريع الاستشارية والتدريب التقني</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-none">
+            <span data-i18n="hero_hello">مرحباً، أنا</span> <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-500 to-accent-cyan">
+              نور الهدى القحطاني
+            </span>
+          </h1>
+
+          <!-- Animated Dynamic Typing Subtitle -->
+          <div class="h-10 flex items-center justify-center lg:justify-start gap-2 text-xl sm:text-2xl font-mono font-bold text-slate-700 dark:text-slate-300">
+            <span class="text-brand-500">&gt;</span>
+            <span id="typing-text" class="text-slate-900 dark:text-white underline decoration-brand-500 underline-offset-8"></span>
+            <span class="animate-pulse text-brand-500">|</span>
+          </div>
+
+          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed" data-i18n="hero_desc">
+            مهندسة برمجيات متخصصة في تطوير الأنظمة السحابية والواجهات فائقة السرعة باستخدام <b>Angular</b> و <b>.NET Core</b>، ومدربة تقنية معتمدة نقلت الشغف لأكثر من 1,500+ متدرب في البرمجة والـ UI/UX.
+          </p>
+
+          <!-- Badges / Highlights -->
+          <div class="flex flex-wrap gap-2 justify-center lg:justify-start pt-2">
+            <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 border border-brand-300 dark:border-brand-700/50">
+              <i class="fa-brands fa-angular me-1 text-red-500"></i> Angular 17+
+            </span>
+            <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-700/50">
+              <i class="fa-brands fa-microsoft me-1 text-blue-500"></i> ASP.NET Core
+            </span>
+            <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700/50">
+              <i class="fa-solid fa-chalkboard-user me-1 text-emerald-500"></i> Tech Mentor
+            </span>
+            <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300 border border-pink-300 dark:border-pink-700/50">
+              <i class="fa-brands fa-figma me-1 text-pink-500"></i> UI/UX Design
+            </span>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+            <a href="#portfolio" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-bold shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:scale-105 transition active:scale-95 flex items-center gap-2">
+              <i class="fa-solid fa-laptop-code"></i>
+              <span data-i18n="hero_btn_work">تصفح أعمالي</span>
+            </a>
+            <a href="#contact" class="px-7 py-3.5 rounded-2xl glass-card font-bold border border-slate-300 dark:border-slate-700 hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 transition hover:scale-105 active:scale-95 flex items-center gap-2">
+              <i class="fa-regular fa-paper-plane"></i>
+              <span data-i18n="hero_btn_contact">تواصل معي</span>
+            </a>
+            <button onclick="downloadCurrentPage()" title="حفظ القالب كملف HTML منفرد" class="px-5 py-3.5 rounded-2xl border border-dashed border-brand-500 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 hover:bg-brand-500 hover:text-white transition flex items-center gap-2 text-sm font-bold">
+              <i class="fa-solid fa-download"></i>
+              <span data-i18n="btn_download_template">تنزيل القالب</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Graphic / Avatar Presentation Column -->
+        <div class="lg:col-span-5 flex justify-center relative">
+          <div class="relative w-72 h-72 sm:w-96 sm:h-96">
+            <!-- Rotating decorative circle -->
+            <div class="absolute inset-0 rounded-full border-2 border-dashed border-brand-500/40 animate-[spin_25s_linear_infinite]"></div>
+            <div class="absolute -inset-2 rounded-full border border-accent-cyan/30 animate-[spin_35s_linear_infinite_reverse]"></div>
+            
+            <!-- Center Card / Portrait -->
+            <div class="w-full h-full rounded-full p-3 glass-card shadow-2xl overflow-hidden relative group">
+              <img 
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
+                alt="Software Engineer and Technical Trainer" 
+                class="w-full h-full object-cover rounded-full filter grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                onerror="this.src='https://placehold.co/600x600/7c3aed/ffffff?text=Software+Engineer'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-transparent to-transparent opacity-60"></div>
+            </div>
+
+            <!-- Floating Interactive Floating Badges -->
+            <div class="absolute -top-4 -left-4 glass-card px-4 py-2 rounded-2xl shadow-xl flex items-center gap-3 border border-brand-400/30 animate-float">
+              <div class="w-9 h-9 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-lg font-bold">
+                <i class="fa-brands fa-angular"></i>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-500 dark:text-slate-400" data-i18n="stat_badge_eng">المنصة</div>
+                <div class="text-sm font-extrabold text-slate-900 dark:text-white">Angular 17</div>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-2 -right-4 glass-card px-4 py-2 rounded-2xl shadow-xl flex items-center gap-3 border border-cyan-400/30 animate-float" style="animation-delay: 1.5s;">
+              <div class="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-lg font-bold">
+                <i class="fa-solid fa-code"></i>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-500 dark:text-slate-400" data-i18n="stat_badge_code">مشاريع منجزة</div>
+                <div class="text-sm font-extrabold text-slate-900 dark:text-white">45+ Project</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <h2 class="text-brand-600 dark:text-brand-400 text-sm font-extrabold uppercase tracking-widest" data-i18n="about_tag">نبذة عن مسيرتي</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-i18n="about_title">تحويل الأفكار المعقدة إلى برمجيات سلسة وتدريب أجيال التقنية</p>
+        <div class="w-20 h-1.5 bg-gradient-to-r from-brand-600 to-accent-cyan mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Quick Metrics Counter Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+        <div class="glass-card p-6 rounded-3xl text-center border-b-4 border-b-brand-600 hover:-translate-y-1 transition duration-300">
+          <div class="text-3xl sm:text-4xl font-black text-brand-600 dark:text-brand-400 mb-1 counter" data-target="6">0</div>
+          <p class="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300" data-i18n="stat_years">سنوات من الخبرة العملية</p>
+        </div>
+        <div class="glass-card p-6 rounded-3xl text-center border-b-4 border-b-accent-cyan hover:-translate-y-1 transition duration-300">
+          <div class="text-3xl sm:text-4xl font-black text-accent-cyan mb-1 counter" data-target="45">0</div>
+          <p class="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300" data-i18n="stat_projects">مشروع برمجي مكتمل</p>
+        </div>
+        <div class="glass-card p-6 rounded-3xl text-center border-b-4 border-b-emerald-500 hover:-translate-y-1 transition duration-300">
+          <div class="text-3xl sm:text-4xl font-black text-emerald-500 mb-1 counter" data-target="1500">0</div>
+          <p class="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300" data-i18n="stat_students">متدرب ومتدربة تقنياً</p>
+        </div>
+        <div class="glass-card p-6 rounded-3xl text-center border-b-4 border-b-pink-500 hover:-translate-y-1 transition duration-300">
+          <div class="text-3xl sm:text-4xl font-black text-pink-500 mb-1">99%</div>
+          <p class="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300" data-i18n="stat_rating">نسبة رضا العملاء والطلاب</p>
+        </div>
+      </div>
+
+      <!-- About story & Experience Timeline -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-6 space-y-6">
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-500/20 text-brand-600 flex items-center justify-center text-sm font-black">01</span>
+            <span data-i18n="about_story_title">الشغف البرمجي والتمكين التقني</span>
+          </h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-justify" data-i18n="about_story_p1">
+            بدأت رحلتي في هندسة البرمجيات بدافع الشغف العميق ببناء حلول برمجية موثوقة تلبي احتياجات المستخدمين الواقعية. على مدار السنوات، صممت ونفذت منصات رقمية وحلول مؤسسية باستخدام بيئات عمل حديثة تضمن الأمان وقابلية التوسع مثل .NET Core و Angular و Cloud Architecture.
+          </p>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-justify" data-i18n="about_story_p2">
+            إلى جانب التطوير البرمجي، أخصص جزءاً كبيراً من وقتي كمدربة وموجهة برمجية (Tech Mentor). قدمت العديد من المعسكرات البرمجية وورش العمل المتخصصة في جامعات ومسرعات أعمال، لمساعدة الطلاب والمطورين الجدد على الانتقال من النظريات إلى بناء مشاريع حقيقية والمنافسة في سوق العمل.
+          </p>
+          
+          <div class="p-5 rounded-2xl glass-card border border-brand-500/20 flex items-center gap-4">
+            <i class="fa-solid fa-quote-right text-3xl text-brand-500/40"></i>
+            <p class="text-sm italic font-medium text-slate-700 dark:text-slate-300" data-i18n="about_quote">
+              "الكود المميز ليس فقط ما يعمل بكفاءة، بل هو ما يسهل على الفريق فهمه، ويسعد المستخدم باستعماله."
+            </p>
+          </div>
+        </div>
+
+        <!-- Career & Education Timeline -->
+        <div class="lg:col-span-6 space-y-6">
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-accent-cyan/20 text-accent-cyan flex items-center justify-center text-sm font-black">02</span>
+            <span data-i18n="about_timeline_title">مسار الخبرة والتعليم</span>
+          </h3>
+
+          <div class="relative border-s-2 border-brand-500/30 ms-4 space-y-8 py-2">
+            <!-- Timeline Item 1 -->
+            <div class="ms-6 relative group">
+              <span class="absolute -start-[31px] top-1.5 w-4 h-4 rounded-full bg-brand-600 ring-4 ring-white dark:ring-slate-900"></span>
+              <span class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400">2022 - الآن</span>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">Senior Full Stack Developer & Tech Lead</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">شركة حلول السحابية التقنية - Riyadh / Remote</p>
+              <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">قيادة تطوير منصات SaaS للقطاع المالي باستخدام Angular 17 و .NET 8 Microservices وبنية Clean Architecture.</p>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="ms-6 relative group">
+              <span class="absolute -start-[31px] top-1.5 w-4 h-4 rounded-full bg-accent-cyan ring-4 ring-white dark:ring-slate-900"></span>
+              <span class="text-xs font-mono font-bold text-accent-cyan">2021 - الآن</span>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">Senior Coding Bootcamp Instructor</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">أكاديميات التقنية ومسرعات الأعمال</p>
+              <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">تدريب أكثر من 1500 متدرب في مسارات هندسة الواجهات، برمجة قواعد البيانات، وأساسيات هندسة البرمجيات واختبارها.</p>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="ms-6 relative group">
+              <span class="absolute -start-[31px] top-1.5 w-4 h-4 rounded-full bg-pink-500 ring-4 ring-white dark:ring-slate-900"></span>
+              <span class="text-xs font-mono font-bold text-pink-500">2018 - 2022</span>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">بكالوريوس هندسة البرمجيات (امتياز مع مرتبة الشرف)</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">جامعة الملك سعود - كلية علوم الحاسب والمعلومات</p>
+              <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">مشروع التخرج: نظام ذكي للرعاية الصحية متكامل مدعوم بالذكاء الاصطناعي مع مرتبة الشرف الأولى.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="py-24 bg-slate-100/50 dark:bg-slate-900/40 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 space-y-3">
+          <h2 class="text-brand-600 dark:text-brand-400 text-sm font-extrabold uppercase tracking-widest" data-i18n="skills_tag">ترسانة التقنيات</h2>
+          <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-i18n="skills_title">المهارات التقنية والأدوات التي أتقنها</p>
+          <div class="w-20 h-1.5 bg-gradient-to-r from-brand-600 to-accent-cyan mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Skills Filter Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+          <button class="skill-tab-btn active px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition shadow-sm bg-brand-600 text-white" data-category="all">
+            <i class="fa-solid fa-layer-group me-1.5"></i> <span data-i18n="skill_all">الكل</span>
+          </button>
+          <button class="skill-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500 transition shadow-sm" data-category="frontend">
+            <i class="fa-brands fa-angular me-1.5 text-red-500"></i> <span>Frontend</span>
+          </button>
+          <button class="skill-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500 transition shadow-sm" data-category="backend">
+            <i class="fa-solid fa-server me-1.5 text-blue-500"></i> <span>Backend & DB</span>
+          </button>
+          <button class="skill-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500 transition shadow-sm" data-category="tools">
+            <i class="fa-solid fa-screwdriver-wrench me-1.5 text-amber-500"></i> <span>Tools & Cloud</span>
+          </button>
+          <button class="skill-tab-btn px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500 transition shadow-sm" data-category="mentor">
+            <i class="fa-solid fa-users-gear me-1.5 text-emerald-500"></i> <span>التدريب & القيادة</span>
+          </button>
+        </div>
+
+        <!-- Skills Grid Cards -->
+        <div id="skills-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Angular -->
+          <div class="skill-item frontend glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/10 text-red-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-brands fa-angular"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">Angular 17+ / RxJS</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Signals, Standalone, State Mgt</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-red-500 h-full rounded-full transition-all duration-1000" style="width: 95%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">95% Proficiency</span>
+          </div>
+
+          <!-- .NET Core / C# -->
+          <div class="skill-item backend glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">ASP.NET Core / C#</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Web API, Clean Architecture, EF Core</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-purple-600 h-full rounded-full transition-all duration-1000" style="width: 92%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">92% Proficiency</span>
+          </div>
+
+          <!-- TypeScript & JS -->
+          <div class="skill-item frontend glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-brands fa-js"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">TypeScript & ESNext</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Modern Async, OOP & Strict Types</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full transition-all duration-1000" style="width: 90%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">90% Proficiency</span>
+          </div>
+
+          <!-- React & Next.js -->
+          <div class="skill-item frontend glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-brands fa-react"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">React & Next.js</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Hooks, SSR, Zustand, UI Kit</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-cyan-500 h-full rounded-full transition-all duration-1000" style="width: 88%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">88% Proficiency</span>
+          </div>
+
+          <!-- SQL Server & PostgreSQL -->
+          <div class="skill-item backend glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-solid fa-database"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">SQL Server & PostgreSQL</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Database Design, Indexing, ORM</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-indigo-600 h-full rounded-full transition-all duration-1000" style="width: 89%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">89% Proficiency</span>
+          </div>
+
+          <!-- Tailwind CSS & Responsive UX -->
+          <div class="skill-item frontend glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-teal-500/10 text-teal-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">Tailwind CSS & UX</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Micro-interactions, A11y, RTL</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-teal-500 h-full rounded-full transition-all duration-1000" style="width: 96%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">96% Proficiency</span>
+          </div>
+
+          <!-- Docker & Git CI/CD -->
+          <div class="skill-item tools glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-brands fa-docker"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">Docker & Git CI/CD</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Containerization, GitHub Actions</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-sky-500 h-full rounded-full transition-all duration-1000" style="width: 85%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">85% Proficiency</span>
+          </div>
+
+          <!-- Technical Mentorship -->
+          <div class="skill-item mentor glass-card p-6 rounded-3xl transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-brand-500/50 group">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">التدريب ونقل المعرفة</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">بناء المناهج، الكود ريفيو، الإرشاد</p>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full transition-all duration-1000" style="width: 98%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 mt-1.5 block text-left">98% Mastery</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 space-y-3">
+        <h2 class="text-brand-600 dark:text-brand-400 text-sm font-extrabold uppercase tracking-widest" data-i18n="portfolio_tag">نماذج مختارة</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-i18n="portfolio_title">معرض المشاريع والأنظمة التقنية</p>
+        <div class="w-20 h-1.5 bg-gradient-to-r from-brand-600 to-accent-cyan mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Project Filter Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+        <button class="proj-filter-btn active px-5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-600 text-white shadow-sm" data-filter="all">
+          <span data-i18n="filter_all">جميع المشاريع</span>
+        </button>
+        <button class="proj-filter-btn px-5 py-2 rounded-xl text-xs sm:text-sm font-bold glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500" data-filter="fullstack">
+          <span>Full Stack</span>
+        </button>
+        <button class="proj-filter-btn px-5 py-2 rounded-xl text-xs sm:text-sm font-bold glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500" data-filter="frontend">
+          <span>Frontend & UI</span>
+        </button>
+        <button class="proj-filter-btn px-5 py-2 rounded-xl text-xs sm:text-sm font-bold glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500" data-filter="edutech">
+          <span>EdTech & Platforms</span>
+        </button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Project 1 -->
+        <div class="project-card fullstack glass-card rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" 
+                alt="Fintech Enterprise Dashboard" 
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500 filter brightness-95 group-hover:brightness-100"
+                onerror="this.src='https://placehold.co/800x500/1e1b4b/ffffff?text=Fintech+Dashboard'"
+              />
+              <div class="absolute top-4 right-4 bg-brand-600/90 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                Full Stack
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-xs font-mono text-brand-600 dark:text-brand-400 mb-2">
+                <span>Angular 17</span> • <span>.NET 8 WebAPI</span> • <span>PostgreSQL</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-500 transition">
+                منصة إيراد للحلول المالية والمحاسبية
+              </h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 line-clamp-3">
+                نظام ERP سحابي متكامل يخدم الشركات المتوسطة بإدارة الفواتير الإلكترونية والربط مع منظومة الفاتورة وحسابات الضرائب بدقة وسرعة فائقة.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80">
+            <button onclick="openProjectModal(1)" class="text-brand-600 dark:text-brand-400 hover:underline font-bold text-xs flex items-center gap-1">
+              <span data-i18n="proj_details">عرض التفاصيل</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="flex items-center gap-3">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-brand-600 hover:text-white transition">
+                <i class="fa-brands fa-github text-sm"></i>
+              </a>
+              <a href="#" class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white hover:bg-brand-700 transition">
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card edutech glass-card rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img 
+                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" 
+                alt="LMS Education Portal" 
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500 filter brightness-95 group-hover:brightness-100"
+                onerror="this.src='https://placehold.co/800x500/0f172a/ffffff?text=EdTech+Platform'"
+              />
+              <div class="absolute top-4 right-4 bg-emerald-600/90 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                EdTech
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400 mb-2">
+                <span>Angular</span> • <span>Tailwind CSS</span> • <span>WebSockets</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-500 transition">
+                بوابة مهارة للتعليم التفاعلي البرمجي
+              </h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 line-clamp-3">
+                منصة تدريبية تتيح للطلاب كتابة وتصحيح الكود البرمجي مباشرة في المتصفح مع بث مباشر للفصول الافتراضية واختبارات تفاعلية.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80">
+            <button onclick="openProjectModal(2)" class="text-brand-600 dark:text-brand-400 hover:underline font-bold text-xs flex items-center gap-1">
+              <span data-i18n="proj_details">عرض التفاصيل</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="flex items-center gap-3">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-brand-600 hover:text-white transition">
+                <i class="fa-brands fa-github text-sm"></i>
+              </a>
+              <a href="#" class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white hover:bg-brand-700 transition">
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card frontend glass-card rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="relative overflow-hidden h-52 bg-slate-900">
+              <img 
+                src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" 
+                alt="Health Tech Design System" 
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500 filter brightness-95 group-hover:brightness-100"
+                onerror="this.src='https://placehold.co/800x500/1e293b/ffffff?text=Design+System'"
+              />
+              <div class="absolute top-4 right-4 bg-accent-cyan/90 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow">
+                Frontend / UI
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-xs font-mono text-accent-cyan mb-2">
+                <span>Figma</span> • <span>Tailwind</span> • <span>Design System</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-500 transition">
+                نظام تصميم واجهات الرعاية الصحية (MediCare DS)
+              </h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 line-clamp-3">
+                مكتبة مكونات UI/UX موحدة متوافقة كلياً مع معايير الوصول العالمية (WCAG AAA) موجهة للمستشفيات والعيادات الطبية الرقمية.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80">
+            <button onclick="openProjectModal(3)" class="text-brand-600 dark:text-brand-400 hover:underline font-bold text-xs flex items-center gap-1">
+              <span data-i18n="proj_details">عرض التفاصيل</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="flex items-center gap-3">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-brand-600 hover:text-white transition">
+                <i class="fa-brands fa-github text-sm"></i>
+              </a>
+              <a href="#" class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white hover:bg-brand-700 transition">
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Project Details Modal Popup -->
+    <div id="project-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+      <div class="glass-card max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-700 relative animate-scaleUp">
+        <button onclick="closeProjectModal()" class="absolute top-4 left-4 z-10 w-9 h-9 rounded-full bg-slate-800/80 text-white flex items-center justify-center hover:bg-red-600 transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div id="modal-content" class="p-6 sm:p-8 space-y-4">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </div>
+
+    <section id="services" class="py-24 bg-slate-100/50 dark:bg-slate-900/40 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 space-y-3">
+          <h2 class="text-brand-600 dark:text-brand-400 text-sm font-extrabold uppercase tracking-widest" data-i18n="services_tag">ماذا أقدم؟</h2>
+          <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-i18n="services_title">الخدمات المهنية والاستشارات والتدريب</p>
+          <div class="w-20 h-1.5 bg-gradient-to-r from-brand-600 to-accent-cyan mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service 1 -->
+          <div class="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition duration-300 hover:-translate-y-2 group">
+            <div class="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3" data-i18n="srv_1_title">تطوير تطبيقات الويب الكاملة (Full Stack)</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="srv_1_desc">
+              بناء أنظمة ويب شاملة وعالية الأداء بالاعتماد على أحدث إصدارات Angular و ASP.NET Core، مع تطبيق بنية برمجية معيارية نظيفة وقواعد بيانات سريعة.
+            </p>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-accent-cyan transition duration-300 hover:-translate-y-2 group">
+            <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 text-accent-cyan flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3" data-i18n="srv_2_title">التدريب البرمجي وورش العمل التقنية</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="srv_2_desc">
+              تقديم معسكرات برمجية احترافية، كورسات تدريبية للشركات والجامعات، وإرشاد فردي مكثف يركز على التطبيق العملي والمشاريع الفعلية في سوق العمل.
+            </p>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-pink-500 transition duration-300 hover:-translate-y-2 group">
+            <div class="w-14 h-14 rounded-2xl bg-pink-500/10 text-pink-500 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+              <i class="fa-solid fa-compass-drafting"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3" data-i18n="srv_3_title">تصميم وتدقيق تجربة المستخدم (UI/UX Audit)</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="srv_3_desc">
+              تحليل واجهات التطبيقات القائمة، رفع معدلات التحويل وسهولة الاستخدام، وبناء أنظمة تصميم (Design Systems) متكاملة وقابلة لإعادة الاستخدام.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <h2 class="text-brand-600 dark:text-brand-400 text-sm font-extrabold uppercase tracking-widest" data-i18n="test_tag">آراء نعتز بها</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-i18n="test_title">ماذا يقول العملاء والطلاب عن العمل معي؟</p>
+        <div class="w-20 h-1.5 bg-gradient-to-r from-brand-600 to-accent-cyan mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Testimonial Cards Carousel / Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Review 1 -->
+        <div class="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 relative flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed italic">
+              "المهندسة نور من أفضل المطورين الذين تعاملنا معهم. سلمت نظام إدارة المنشأة المعتمد على Angular و .NET قبل الموعد المحدد مع التزام فائق بجودة الكود وتجاوب رائع."
+            </p>
+          </div>
+          <div class="flex items-center gap-4 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <img class="w-12 h-12 rounded-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Client Avatar" />
+            <div>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white">سارة المنصور</h4>
+              <p class="text-xs text-slate-500">مديرة منتج في TechFin</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 relative flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed italic">
+              "حضرت معسكر الواجهات البرمجية مع المدربة نور، كان أفضل استثمار لوقتي. أسلوبها في تبسيط المفاهيم المعقدة مثل RxJS و State Management فتح لي أبواب التوظيف."
+            </p>
+          </div>
+          <div class="flex items-center gap-4 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <img class="w-12 h-12 rounded-full object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Student Avatar" />
+            <div>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white">عبدالعزيز الشمري</h4>
+              <p class="text-xs text-slate-500">خريج معسكر الواجهات التقنية</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 relative flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed italic">
+              "احترافية عالية، رؤية ثاقبة في تحسين سرعة التطبيق وواجهات الاستخدام. بفضل التعديلات التي أجرتها زادت سرعة تحميل المنصة بنسبة تفوق 40%."
+            </p>
+          </div>
+          <div class="flex items-center gap-4 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <img class="w-12 h-12 rounded-full object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Client Avatar" />
+            <div>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white">م. فهد العتيبي</h4>
+              <p class="text-xs text-slate-500">مؤسس منصة لوجستية</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-slate-100/50 dark:bg-slate-900/40 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 space-y-3">
+          <h2 class="text-brand-600 dark:text-brand-400 text-sm font-extrabold uppercase tracking-widest" data-i18n="contact_tag">ابدأ مشروعك الآن</h2>
+          <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-i18n="contact_title">دعنا نصنع شيئاً استثنائياً معاً</p>
+          <div class="w-20 h-1.5 bg-gradient-to-r from-brand-600 to-accent-cyan mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <!-- Info Column -->
+          <div class="lg:col-span-5 space-y-8">
+            <div class="glass-card p-6 rounded-3xl space-y-6">
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white" data-i18n="contact_info_title">معلومات التواصل المباشر</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-300" data-i18n="contact_info_sub">
+                سواء كنت ترغب في تطوير نظام رقمي جديد، استشارة برمجية، أو تنظيم ورشة تدريبية لفريقك، يسعدني دائماً تواصلك.
+              </p>
+
+              <div class="space-y-4">
+                <a href="mailto:nour.dev@example.com" class="flex items-center gap-4 p-3 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-slate-800 transition">
+                  <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl">
+                    <i class="fa-regular fa-envelope"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs text-slate-500" data-i18n="contact_email_lbl">البريد الإلكتروني</span>
+                    <p class="font-bold text-sm text-slate-900 dark:text-white">nour.dev@example.com</p>
+                  </div>
+                </a>
+
+                <a href="https://wa.me/966500000000" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-slate-800 transition">
+                  <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs text-slate-500" data-i18n="contact_wa_lbl">واتساب مباشر</span>
+                    <p class="font-bold text-sm text-slate-900 dark:text-white" dir="ltr">+966 50 000 0000</p>
+                  </div>
+                </a>
+
+                <div class="flex items-center gap-4 p-3 rounded-2xl">
+                  <div class="w-12 h-12 rounded-xl bg-accent-cyan/10 text-accent-cyan flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs text-slate-500" data-i18n="contact_loc_lbl">الموقع الجغرافي</span>
+                    <p class="font-bold text-sm text-slate-900 dark:text-white" data-i18n="contact_loc_val">الرياض، المملكة العربية السعودية</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Social Links Row -->
+              <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center gap-3">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-brand-600 hover:text-white transition shadow-sm">
+                  <i class="fa-brands fa-github text-base"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-blue-600 hover:text-white transition shadow-sm">
+                  <i class="fa-brands fa-linkedin-in text-base"></i>
+                </a>
+                <a href="https://upwork.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition shadow-sm">
+                  <i class="fa-solid fa-briefcase text-base"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-sky-500 hover:text-white transition shadow-sm">
+                  <i class="fa-brands fa-x-twitter text-base"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form Column -->
+          <div class="lg:col-span-7">
+            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="glass-card p-8 rounded-3xl space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2" data-i18n="form_name">الاسم الكريم *</label>
+                  <input type="text" required placeholder="مثال: فهد عبد الله" class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500 text-sm transition" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2" data-i18n="form_email">البريد الإلكتروني *</label>
+                  <input type="email" required placeholder="name@company.com" class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500 text-sm transition" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2" data-i18n="form_subject">نوع الخدمة / الموضوع</label>
+                <select class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500 text-sm transition">
+                  <option value="dev">تطوير مشروع برمجي متكامل (Full Stack)</option>
+                  <option value="training">استشارة تدريبية أو تقديم ورشة عمل</option>
+                  <option value="uiux">تصميم وتدقيق واجهات المستخدم (UI/UX)</option>
+                  <option value="other">أمر آخر / استفسار عام</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2" data-i18n="form_msg">تفاصيل الرسالة *</label>
+                <textarea rows="4" required placeholder="صف باختصار أهدافك أو فكرة مشروعك..." class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500 text-sm transition"></textarea>
+              </div>
+
+              <!-- Message feedback notification -->
+              <div id="form-feedback" class="hidden p-4 rounded-xl text-sm font-bold"></div>
+
+              <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-bold text-sm shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:scale-[1.01] active:scale-[0.99] transition flex items-center justify-center gap-2">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span data-i18n="form_send">إرسال الرسالة الآن</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-950/70 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
+            &lt;/&gt;
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400 font-medium">
+            © <span id="current-year">2026</span> <span data-i18n="footer_rights">جميع الحقوق محفوظة للمهندسة نور الهدى. مصمم بأعلى معايير الـ UI/UX.</span>
+          </p>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button onclick="downloadCurrentPage()" class="px-4 py-2 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500 hover:text-white transition text-xs font-bold flex items-center gap-2">
+            <i class="fa-solid fa-download"></i>
+            <span data-i18n="btn_download_template">تنزيل القالب (HTML)</span>
+          </button>
+          <a href="#" class="w-9 h-9 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-brand-600 hover:text-white transition" title="للأعلى">
+            <i class="fa-solid fa-arrow-up text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* -------------------------------------------------------------
+       1. DICTIONARY & MULTI-LANGUAGE ENGINE (ARABIC / ENGLISH)
+       ------------------------------------------------------------- */
+    const translations = {
+      ar: {
+        logo_name: "نور الهدى د.",
+        logo_sub: "Full Stack & Tech Trainer",
+        nav_about: "من أنا",
+        nav_skills: "المهارات",
+        nav_portfolio: "أعمالي",
+        nav_services: "الخدمات والتدريب",
+        nav_reviews: "التقييمات",
+        nav_contact: "تواصل معي",
+        cv_download: "تحميل السيرة (CV)",
+        hero_status: "متاحة للمشاريع الاستشارية والتدريب التقني",
+        hero_hello: "مرحباً، أنا",
+        hero_desc: "مهندسة برمجيات متخصصة في تطوير الأنظمة السحابية والواجهات فائقة السرعة باستخدام Angular و .NET Core، ومدربة تقنية معتمدة نقلت الشغف لأكثر من 1,500+ متدرب في البرمجة والـ UI/UX.",
+        hero_btn_work: "تصفح أعمالي",
+        hero_btn_contact: "تواصل معي",
+        btn_download_template: "تنزيل القالب (HTML)",
+        stat_badge_eng: "المنصة الأساسية",
+        stat_badge_code: "مشاريع منجزة",
+        about_tag: "نبذة عن مسيرتي",
+        about_title: "تحويل الأفكار المعقدة إلى برمجيات سلسة وتدريب أجيال التقنية",
+        stat_years: "سنوات من الخبرة العملية",
+        stat_projects: "مشروع برمجي مكتمل",
+        stat_students: "متدرب ومتدربة تقنياً",
+        stat_rating: "نسبة رضا العملاء والطلاب",
+        about_story_title: "الشغف البرمجي والتمكين التقني",
+        about_story_p1: "بدأت رحلتي في هندسة البرمجيات بدافع الشغف العميق ببناء حلول برمجية موثوقة تلبي احتياجات المستخدمين الواقعية. على مدار السنوات، صممت ونفذت منصات رقمية وحلول مؤسسية باستخدام بيئات عمل حديثة تضمن الأمان وقابلية التوسع مثل .NET Core و Angular و Cloud Architecture.",
+        about_story_p2: "إلى جانب التطوير البرمجي، أخصص جزءاً كبيراً من وقتي كمدربة وموجهة برمجية (Tech Mentor). قدمت العديد من المعسكرات البرمجية وورش العمل المتخصصة في جامعات ومسرعات أعمال، لمساعدة الطلاب والمطورين الجدد على الانتقال من النظريات إلى بناء مشاريع حقيقية والمنافسة في سوق العمل.",
+        about_quote: '"الكود المميز ليس فقط ما يعمل بكفاءة، بل هو ما يسهل على الفريق فهمه، ويسعد المستخدم باستعماله."',
+        about_timeline_title: "مسار الخبرة والتعليم",
+        skills_tag: "ترسانة التقنيات",
+        skills_title: "المهارات التقنية والأدوات التي أتقنها",
+        skill_all: "الكل",
+        portfolio_tag: "نماذج مختارة",
+        portfolio_title: "معرض المشاريع والأنظمة التقنية",
+        filter_all: "جميع المشاريع",
+        proj_details: "عرض التفاصيل",
+        services_tag: "ماذا أقدم؟",
+        services_title: "الخدمات المهنية والاستشارات والتدريب",
+        srv_1_title: "تطوير تطبيقات الويب الكاملة (Full Stack)",
+        srv_1_desc: "بناء أنظمة ويب شاملة وعالية الأداء بالاعتماد على أحدث إصدارات Angular و ASP.NET Core، مع تطبيق بنية برمجية معيارية نظيفة وقواعد بيانات سريعة.",
+        srv_2_title: "التدريب البرمجي وورش العمل التقنية",
+        srv_2_desc: "تقديم معسكرات برمجية احترافية، كورسات تدريبية للشركات والجامعات، وإرشاد فردي مكثف يركز على التطبيق العملي والمشاريع الفعلية في سوق العمل.",
+        srv_3_title: "تصميم وتدقيق تجربة المستخدم (UI/UX Audit)",
+        srv_3_desc: "تحليل واجهات التطبيقات القائمة، رفع معدلات التحويل وسهولة الاستخدام، وبناء أنظمة تصميم (Design Systems) متكاملة وقابلة لإعادة الاستخدام.",
+        test_tag: "آراء نعتز بها",
+        test_title: "ماذا يقول العملاء والطلاب عن العمل معي؟",
+        contact_tag: "ابدأ مشروعك الآن",
+        contact_title: "دعنا نصنع شيئاً استثنائياً معاً",
+        contact_info_title: "معلومات التواصل المباشر",
+        contact_info_sub: "سواء كنت ترغب في تطوير نظام رقمي جديد، استشارة برمجية، أو تنظيم ورشة تدريبية لفريقك، يسعدني دائماً تواصلك.",
+        contact_email_lbl: "البريد الإلكتروني",
+        contact_wa_lbl: "واتساب مباشر",
+        contact_loc_lbl: "الموقع الجغرافي",
+        contact_loc_val: "الرياض، المملكة العربية السعودية",
+        form_name: "الاسم الكريم *",
+        form_email: "البريد الإلكتروني *",
+        form_subject: "نوع الخدمة / الموضوع",
+        form_msg: "تفاصيل الرسالة *",
+        form_send: "إرسال الرسالة الآن",
+        footer_rights: "جميع الحقوق محفوظة للمهندسة نور الهدى. مصمم بأعلى معايير الـ UI/UX."
+      },
+      en: {
+        logo_name: "Nour Al-Huda",
+        logo_sub: "Full Stack & Tech Trainer",
+        nav_about: "About Me",
+        nav_skills: "Skills",
+        nav_portfolio: "Portfolio",
+        nav_services: "Services & Training",
+        nav_reviews: "Reviews",
+        nav_contact: "Contact",
+        cv_download: "Download CV",
+        hero_status: "Available for Consulting & Tech Training",
+        hero_hello: "Hello, I am",
+        hero_desc: "Software Engineer specializing in scalable cloud architectures and modern interfaces with Angular & .NET Core, plus an enthusiastic Tech Mentor empowering 1,500+ developers.",
+        hero_btn_work: "Explore Projects",
+        hero_btn_contact: "Get in Touch",
+        btn_download_template: "Download Template (HTML)",
+        stat_badge_eng: "Primary Tech",
+        stat_badge_code: "Completed",
+        about_tag: "My Journey",
+        about_title: "Crafting scalable software systems and coaching future tech leaders",
+        stat_years: "Years of Experience",
+        stat_projects: "Projects Delivered",
+        stat_students: "Mentees & Students",
+        stat_rating: "Client & Student Satisfaction",
+        about_story_title: "Passion for Code & Mentorship",
+        about_story_p1: "My software journey started from an innate curiosity for designing dependable systems solving genuine challenges. Over the years, I have architected and deployed enterprise SaaS products utilizing .NET Core, Angular, and Clean Architecture.",
+        about_story_p2: "Beyond coding, I dedicate significant energy to tech mentorship. Leading hands-on developer bootcamps and workshops across universities and incubators has been deeply rewarding.",
+        about_quote: '"Great code is not simply code that works; it is code your team loves reading and your users love experiencing."',
+        about_timeline_title: "Career & Education Path",
+        skills_tag: "Tech Stack",
+        skills_title: "Technologies & Engineering Toolkit",
+        skill_all: "All",
+        portfolio_tag: "Selected Works",
+        portfolio_title: "Featured Projects & Platforms",
+        filter_all: "All Projects",
+        proj_details: "View Details",
+        services_tag: "Capabilities",
+        services_title: "Professional Services & Workshops",
+        srv_1_title: "Full Stack Web Development",
+        srv_1_desc: "Architecting end-to-end robust applications leveraging Angular and ASP.NET Core Web APIs with clean design patterns and reliable databases.",
+        srv_2_title: "Developer Training & Bootcamps",
+        srv_2_desc: "Curating high-impact engineering bootcamps, enterprise workshops, and 1-on-1 mentorship focused on real production standards.",
+        srv_3_title: "UI/UX Design Systems & Audit",
+        srv_3_desc: "Comprehensive interface auditing, accessibility elevation, and scalable Design Systems built for high maintainability.",
+        test_tag: "Social Proof",
+        test_title: "Kind Words from Clients and Trainees",
+        contact_tag: "Start a Collaboration",
+        contact_title: "Let's build impactful software together",
+        contact_info_title: "Direct Channels",
+        contact_info_sub: "Whether you need high-level development, a technical workshop, or architectural advice, feel free to reach out.",
+        contact_email_lbl: "Email Address",
+        contact_wa_lbl: "WhatsApp Direct",
+        contact_loc_lbl: "Location",
+        contact_loc_val: "Riyadh, Saudi Arabia",
+        form_name: "Full Name *",
+        form_email: "Email Address *",
+        form_subject: "Topic / Inquiry",
+        form_msg: "Message Details *",
+        form_send: "Send Message",
+        footer_rights: "All Rights Reserved. Nour Al-Huda. Engineered for modern web experience."
+      }
+    };
+
+    let currentLang = 'ar';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      
+      const langBtn = document.getElementById('lang-btn');
+      langBtn.textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+
+      // Update text values
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+    }
+
+    document.getElementById('lang-btn').addEventListener('click', toggleLanguage);
+
+    /* -------------------------------------------------------------
+       2. DARK / LIGHT THEME TOGGLE
+       ------------------------------------------------------------- */
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+
+    /* -------------------------------------------------------------
+       3. MOBILE NAVIGATION DRAWER
+       ------------------------------------------------------------- */
+    const mobileBtn = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    // Auto-close menu when clicking links
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    /* -------------------------------------------------------------
+       4. TYPING TEXT ANIMATION
+       ------------------------------------------------------------- */
+    const phrases = [
+      "Senior Full Stack Engineer",
+      "Angular & .NET Specialist",
+      "Certified Tech Trainer & Mentor",
+      "UI/UX & Design Systems Advocate"
+    ];
+    let phraseIndex = 0;
+    let letterIndex = 0;
+    let isDeleting = false;
+    const typingElement = document.getElementById('typing-text');
+
+    function typeLoop() {
+      const current = phrases[phraseIndex];
+      if (isDeleting) {
+        typingElement.textContent = current.substring(0, letterIndex - 1);
+        letterIndex--;
+      } else {
+        typingElement.textContent = current.substring(0, letterIndex + 1);
+        letterIndex++;
+      }
+
+      let speed = isDeleting ? 40 : 80;
+
+      if (!isDeleting && letterIndex === current.length) {
+        speed = 1800; // pause at end
+        isDeleting = true;
+      } else if (isDeleting && letterIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        speed = 400;
+      }
+
+      setTimeout(typeLoop, speed);
+    }
+    typeLoop();
+
+    /* -------------------------------------------------------------
+       5. INTERACTIVE BACKGROUND GLOW POINTER
+       ------------------------------------------------------------- */
+    const glowEl = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', (e) => {
+      if (glowEl) {
+        glowEl.style.left = `${e.clientX}px`;
+        glowEl.style.top = `${e.clientY}px`;
+      }
+    });
+
+    /* -------------------------------------------------------------
+       6. INTERACTIVE BACKGROUND PARTICLES (CANVAS)
+       ------------------------------------------------------------- */
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.6;
+        this.speedY = (Math.random() - 0.5) * 0.6;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(139, 92, 246, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 45; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* -------------------------------------------------------------
+       7. STAT NUMERICAL COUNTERS ANIMATION ON SCROLL
+       ------------------------------------------------------------- */
+    const counters = document.querySelectorAll('.counter');
+    let counterTriggered = false;
+
+    function runCounters() {
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const increment = target / 50;
+        let count = 0;
+
+        const updateCount = () => {
+          count += increment;
+          if (count < target) {
+            counter.innerText = Math.ceil(count) + (target > 50 ? '+' : '');
+            setTimeout(updateCount, 25);
+          } else {
+            counter.innerText = target + (target > 50 ? '+' : '');
+          }
+        };
+        updateCount();
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      const aboutSec = document.getElementById('about');
+      if (aboutSec && !counterTriggered) {
+        const rect = aboutSec.getBoundingClientRect();
+        if (rect.top <= window.innerHeight - 100) {
+          runCounters();
+          counterTriggered = true;
+        }
+      }
+    });
+
+    /* -------------------------------------------------------------
+       8. SKILLS TAB FILTERING
+       ------------------------------------------------------------- */
+    const skillBtns = document.querySelectorAll('.skill-tab-btn');
+    const skillItems = document.querySelectorAll('.skill-item');
+
+    skillBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        skillBtns.forEach(b => {
+          b.classList.remove('bg-brand-600', 'text-white', 'active');
+          b.classList.add('glass-card');
+        });
+        btn.classList.add('bg-brand-600', 'text-white', 'active');
+        btn.classList.remove('glass-card');
+
+        const cat = btn.getAttribute('data-category');
+        skillItems.forEach(item => {
+          if (cat === 'all' || item.classList.contains(cat)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    /* -------------------------------------------------------------
+       9. PORTFOLIO FILTERING
+       ------------------------------------------------------------- */
+    const projBtns = document.querySelectorAll('.proj-filter-btn');
+    const projCards = document.querySelectorAll('.project-card');
+
+    projBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        projBtns.forEach(b => {
+          b.classList.remove('bg-brand-600', 'text-white', 'active');
+          b.classList.add('glass-card');
+        });
+        btn.classList.add('bg-brand-600', 'text-white', 'active');
+        btn.classList.remove('glass-card');
+
+        const filter = btn.getAttribute('data-filter');
+        projCards.forEach(card => {
+          if (filter === 'all' || card.classList.contains(filter)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    /* -------------------------------------------------------------
+       10. PROJECT MODAL DETAILS DATA & CONTROLS
+       ------------------------------------------------------------- */
+    const projectsData = {
+      1: {
+        title: "منصة إيراد للحلول المالية (ERP & Invoicing)",
+        category: "Full Stack Development",
+        desc: "نظام ERP سحابي متقدم يتيح إدارة الحسابات، توليد الفواتير الإلكترونية المتوافقة مع متطلبات هيئة الزكاة والضريبة، مع دعم معالجة التدفقات المالية اللحظية ومخططات بيانية تفاعلية.",
+        techs: ["Angular 17", "ASP.NET Core 8", "PostgreSQL", "Tailwind CSS", "Docker", "Redis"],
+        features: [
+          "ربط فوري وتشفير للفواتير الإلكترونية (ZATCA compliant)",
+          "واجهة مستخدم فائقة الاستجابة باستخدام Angular Signals",
+          "نظام تنبيهات لحظية عبر WebSockets لعمليات الدفع والتسويات"
+        ],
+        github: "https://github.com",
+        demo: "https://example.com"
+      },
+      2: {
+        title: "بوابة مهارة للتعليم التفاعلي البرمجي (EdTech)",
+        category: "EdTech & Interactive Learning",
+        desc: "بيئة تعليمية سحابية موجهة لطلاب البرمجة تمكنهم من تنفيذ التمارين البرمجية داخل المتصفح، مع تصحيح تلقائي وتتبع للتقدم الأكاديمي، وبث المحاضرات المباشرة.",
+        techs: ["Angular", "Node.js Sandbox", "WebSockets", "Monaco Editor", "Tailwind"],
+        features: [
+          "محرر أكواد مدمج بالمتصفح مع دعم التصحيح التلقائي",
+          "مؤشرات تقدم تفاعلية ومسابقات برمجية جماعية",
+          "نظام دردشة ومناقشات فورية بين الطلاب والمشرفين"
+        ],
+        github: "https://github.com",
+        demo: "https://example.com"
+      },
+      3: {
+        title: "نظام تصميم واجهات الرعاية الصحية (MediCare DS)",
+        category: "Design System & UI/UX",
+        desc: "نظام تصميم شامل ومكتبة مكونات مستدامة موجهة لتطبيقات المستشفيات والعيادات الطبية لتسريع الإنتاج وتوحيد الهوية البصرية مع الامتثال الصارم لإمكانية الوصول.",
+        techs: ["Figma", "Tailwind CSS", "Storybook", "TypeScript", "A11y Standards"],
+        features: [
+          "أكثر من 80 مكون واجهة مخصص للقطاع الصحي",
+          "دعم كامل وسلس للغتين العربية (RTL) والإنجليزية (LTR)",
+          "توافق كامل مع متطلبات تباين الألوان العالمي WCAG AAA"
+        ],
+        github: "https://github.com",
+        demo: "https://example.com"
+      }
+    };
+
+    function openProjectModal(id) {
+      const modal = document.getElementById('project-modal');
+      const content = document.getElementById('modal-content');
+      const data = projectsData[id];
+      if (!data) return;
+
+      content.innerHTML = `
+        <span class="text-xs font-mono font-bold text-brand-500 uppercase tracking-widest">${data.category}</span>
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">${data.title}</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">${data.desc}</p>
+        
+        <div class="pt-2">
+          <h4 class="text-xs font-bold text-slate-900 dark:text-white uppercase mb-2">أبرز الميزات والحلول المنفذة:</h4>
+          <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-1.5 list-disc list-inside">
+            ${data.features.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="pt-2">
+          <h4 class="text-xs font-bold text-slate-900 dark:text-white uppercase mb-2">التقنيات المستخدمة:</h4>
+          <div class="flex flex-wrap gap-1.5">
+            ${data.techs.map(t => `<span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">${t}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-200 dark:border-slate-800">
+          <a href="${data.github}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold border border-slate-300 dark:border-slate-700 hover:border-brand-500 transition flex items-center gap-1.5">
+            <i class="fa-brands fa-github"></i> كود المشروع
+          </a>
+          <a href="${data.demo}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold bg-brand-600 text-white hover:bg-brand-700 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> المعاينة الحية
+          </a>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeProjectModal() {
+      document.getElementById('project-modal').classList.add('hidden');
+    }
+
+    document.getElementById('project-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'project-modal') closeProjectModal();
+    });
+
+    /* -------------------------------------------------------------
+       11. CONTACT FORM HANDLER (NON-BLOCKING FEEDBACK)
+       ------------------------------------------------------------- */
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const feedback = document.getElementById('form-feedback');
+      feedback.classList.remove('hidden');
+      feedback.className = "p-4 rounded-xl text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30";
+      feedback.innerHTML = '<i class="fa-solid fa-circle-check me-2"></i> شكراً لك! تم استلام رسالتك بنجاح، وسأعاود الرد عليك خلال أقل من 24 ساعة.';
+      event.target.reset();
+      
+      setTimeout(() => {
+        feedback.classList.add('hidden');
+      }, 5000);
+    }
+
+    /* -------------------------------------------------------------
+       12. ONE-CLICK TEMPLATE DOWNLOAD FEATURE (HTML ASSET)
+       ------------------------------------------------------------- */
+    function downloadCurrentPage() {
+      const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([fullHtml], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Nour-AlHuda-Portfolio-Template.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Set current year dynamically
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* Reference: "CV download" action styled as glass list rows */
+a {
+  display: block;
+  max-width: 720px;
+  margin-inline: auto;
+  text-decoration: none;
+  animation: ds-fade-up 0.6s var(--ease) both;
+}
+br { display: none; }
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1rem !important;
+  padding: 1.1rem 1.5rem;
+  text-align: start;
+  border-radius: var(--r-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+}
+.btn::before {
+  content: '\F63B';
+  font-family: 'bootstrap-icons';
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-md);
+  font-size: 1.2rem;
+  color: #fff;
+  background: var(--grad-brand);
+  box-shadow: var(--shadow-brand);
+  transition: transform var(--t);
+}
+.btn::after {
+  content: '\F12C';
+  font-family: 'bootstrap-icons';
+  margin-inline-start: auto;
+  color: var(--brand-400);
+  transition: transform var(--t);
+}
+.btn:hover {
+  background: var(--glass-bg);
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-4px);
+}
+.btn:hover::before { transform: scale(1.08) rotate(-6deg); }
+.btn:hover::after { transform: translateY(3px); }

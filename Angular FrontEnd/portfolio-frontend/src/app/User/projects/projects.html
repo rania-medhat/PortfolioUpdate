@@ -1,0 +1,22 @@
+    <section id="portfolio" class="section bg-dark text-white p-5 ">
+      <div class="container p-5 ">
+        <h2 class="section-title text-center">PORTFOLIO</h2>
+        <div class="filters text-center mb-4">
+
+          <button (click)="getAllProjects('All')" class="btn btn-outline-light btn-sm me-2">All</button>
+          <button (click)="getAllProjects('React')" class="btn btn-outline-light btn-sm me-2">React</button>
+          <button (click)="getAllProjects('ASP.Net')" (click)="getAllProjects('ASP.Net')" class="btn btn-outline-light btn-sm me-2">ASP.Net</button>
+          <button (click)="getAllProjects('MEAN Stack')" class="btn btn-outline-light btn-sm me-2">MEAN Stack</button>
+          <button (click)="getAllProjects('Angular')" class="btn btn-outline-light btn-sm me-2">Angular</button>
+          <button (click)="getAllProjects('Node.js')" class="btn btn-outline-light btn-sm me-2">Node.js</button>
+        </div>
+
+        <div class="row g-3">
+          @for(project of projects ||[]; track $index) {
+          <div class="col-12 col-md-4" *ngIf="projects.length > 0" >
+<div  class="card bg-transparent border-0"><a [href]="project.link"><img [src]="project.image" width="300"
+          height="200" class="card-img-top gallery-img" alt="p1" ></a></div></div>
+          }
+        </div>
+      </div>
+    </section>

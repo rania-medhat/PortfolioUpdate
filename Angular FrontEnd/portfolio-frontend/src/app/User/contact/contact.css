@@ -1,0 +1,14 @@
+/* Reference: glass contact form, full-width gradient submit */
+form .btn {
+  width: 100%;
+  padding-block: 0.9rem;
+}
+form .btn::after {
+  content: '\F6B9';
+  font-family: 'bootstrap-icons';
+  margin-inline-start: 0.6rem;
+}
+form .mb-3 { animation: ds-fade-up 0.6s var(--ease) both; }
+form .mb-3:nth-child(2) { animation-delay: 0.06s; }
+form .mb-3:nth-child(3) { animation-delay: 0.12s; }
+form .mb-3:nth-child(4) { animation-delay: 0.18s; }

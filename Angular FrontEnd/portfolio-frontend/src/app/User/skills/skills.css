@@ -1,0 +1,68 @@
+/* Reference: skill grid of glass tiles with icon hover-scale */
+h5 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+}
+h5.mt-4,
+h5.mt-5:last-of-type {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--brand-400);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+h5.text-center::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.row > div {
+  flex: 0 0 auto;
+  width: 7.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.75rem;
+  margin-inline: 0.5rem;
+  border-radius: var(--r-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-2);
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t), color var(--t);
+}
+.row > div:hover {
+  transform: translateY(-8px);
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: var(--shadow-card);
+  color: #fff;
+}
+
+.skill-icon {
+  width: 3.25rem !important;
+  height: 3.25rem;
+  object-fit: contain;
+  padding: 0.4rem;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.92);
+  transition: transform var(--t);
+}
+.row > div:hover .skill-icon { transform: scale(1.12) rotate(-4deg); }
+
+@media (max-width: 575.98px) {
+  .row > div { width: calc(33.333% - 1rem); margin-inline: 0.25rem; }
+  .skill-icon { width: 2.75rem !important; height: 2.75rem; }
+}

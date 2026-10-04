@@ -1,0 +1,22 @@
+/* Reference: glass admin form + danger zone panel */
+form { margin-bottom: 2rem; }
+form .btn { width: 100%; padding-block: 0.9rem; }
+
+form ~ .mb-3,
+form ~ .btn-danger {
+  max-width: 720px;
+  margin-inline: auto;
+}
+form ~ .mb-3 {
+  padding: 1.5rem 1.5rem 0.5rem;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: rgba(244, 63, 94, 0.06);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-bottom: 0;
+  margin-bottom: 0 !important;
+}
+form ~ .btn-danger {
+  display: block;
+  width: 100%;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+}

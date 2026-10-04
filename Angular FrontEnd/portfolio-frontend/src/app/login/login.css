@@ -1,0 +1,43 @@
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  animation: ds-fade-up 0.7s var(--ease) both;
+}
+
+.login-card {
+  width: min(100%, 28rem);
+  padding: 2.5rem 2rem;
+  border-radius: var(--r-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.google-button {
+  min-height: 44px;
+}
+
+.login-error {
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--r-sm);
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #fda4af;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.back-link {
+  font-size: 0.85rem;
+  text-decoration: none;
+}

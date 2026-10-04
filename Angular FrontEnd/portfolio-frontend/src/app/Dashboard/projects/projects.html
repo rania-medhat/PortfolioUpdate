@@ -1,0 +1,92 @@
+<section class="p-5">
+  <div class="p-5">
+<h2 class="section-title text-center">Add Projects</h2>
+
+  <div class="p-5">
+
+<form  class="p-5" #projectForm="ngForm" (ngSubmit)="addProject(projectForm)">
+
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      name="title"
+      ngModel
+      required
+      placeholder="Project Title">
+  </div>
+
+  <div class="mb-3">
+    <input
+      type="file"
+      class="form-control"
+      name="img"
+
+      required
+      placeholder="Project Image">
+  </div>
+
+  <div class="mb-3">
+    <select
+      class="form-control"
+      name="category"
+      ngModel
+      required>
+      <option value="">Select Category</option>
+      <option value="React">React</option>
+      <option value="Angular">Angular</option>
+      <option value="Node.js">Node.js</option>
+      <option value="ASP.Net">ASP.Net</option>
+      <option value="MEAN Stack">MEAN Stack</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      name="link"
+      ngModel
+      required
+      placeholder="Project Link">
+  </div>
+
+  <button class="btn btn-dark" [disabled]="projectForm.invalid">
+    Add Project
+  </button>
+
+
+
+</form>
+ <!-- delete Project -->
+  <div class="mb-3">
+    <label class="form-label">Select Project to Delete</label>
+
+    <select
+      class="form-control"
+      [(ngModel)]="selectedProjectTitle"
+      name="selectedProject"
+      required>
+
+      <option value="" disabled selected>
+        -- Choose Project --
+      </option>
+
+      <option
+        *ngFor="let project of projects"
+        [value]="project.title">
+        {{ project.title }}
+      </option>
+
+    </select>
+  </div>
+
+  <!-- Delete Button -->
+  <button
+    class="btn btn-danger"
+    (click)="deleteProject(selectedProjectTitle)">
+    Delete Project
+  </button>
+  </div>
+  </div>
+</section>

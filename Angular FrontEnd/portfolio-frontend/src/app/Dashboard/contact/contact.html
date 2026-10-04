@@ -1,0 +1,35 @@
+<section class="p-5">
+<div class="p-5">
+              <h2 class="section-title text-center">Messages</h2>
+
+  @if (selectedMessage) {
+  <div class="p-5">
+<div class="card m-2">
+  <div class="card-body">
+    <h5 class="card-title">{{selectedMessage.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{selectedMessage.email}}</h6>
+    <a [href]="'tel:' + selectedMessage.phone" class="card-link">{{selectedMessage.phone}}</a>
+    <p class="card-text mt-3 message-full">{{selectedMessage.message}}</p>
+    <button type="button" class="btn btn-primary mt-3 align-self-start" (click)="selectedMessage = null">Back to Messages</button>
+  </div>
+</div>
+  </div>
+  } @else {
+  <div class="p-5">
+
+@for (message of messages; track $index) {
+<div class="card m-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{message.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{message.email}}</h6>
+    <p class="card-text">{{message.message}}</p>
+    <a href="#" class="card-link">{{message.phone}}</a>
+    <a href="#" class="card-link" (click)="$event.preventDefault(); selectedMessage = message">Display Message</a>
+  </div>
+</div>
+}
+  </div>
+  }
+
+</div>
+</section>

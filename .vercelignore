@@ -1,0 +1,11 @@
+# Ignore backend and local dev folders during Vercel upload
+Node Backend/
+**/node_modules/
+Angular FrontEnd/**/node_modules/
+
+# Local settings and logs
+.vscode/
+.idea/
+*.log
+.env
+uploads/

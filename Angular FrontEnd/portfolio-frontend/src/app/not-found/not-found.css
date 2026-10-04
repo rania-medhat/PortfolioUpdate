@@ -1,0 +1,9 @@
+:host { min-height: 100vh; display: grid !important; place-items: center; padding: 1rem; }
+p {
+  padding: 1.5rem 2rem;
+  border-radius: var(--r-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  font-family: 'Fira Code', monospace;
+  color: var(--brand-300);
+}

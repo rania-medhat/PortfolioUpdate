@@ -1,0 +1,47 @@
+/* Reference: filter tabs + portfolio cards with image zoom and gradient overlay */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.filters .btn { margin: 0 !important; border-radius: var(--r-md); padding: 0.55rem 1.25rem; }
+.filters .btn:focus { background: var(--grad-brand); border-color: transparent; color: #fff !important; box-shadow: var(--shadow-brand); }
+
+.card {
+  position: relative;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border) !important;
+  background: var(--glass-bg) !important;
+  padding: 0.5rem;
+}
+.card a {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--r-lg) - 0.5rem);
+}
+.card a::after {
+  content: '\F1C5';
+  font-family: 'bootstrap-icons';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(76, 29, 149, 0.8), rgba(76, 29, 149, 0.1));
+  opacity: 0;
+  transition: opacity var(--t);
+}
+.card:hover a::after,
+.card a:focus-visible::after { opacity: 1; }
+
+.gallery-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.card:hover .gallery-img { transform: scale(1.08); }

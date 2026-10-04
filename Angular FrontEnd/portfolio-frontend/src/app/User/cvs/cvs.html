@@ -1,0 +1,15 @@
+<section class="p-5">
+  <div class="p-5">
+    <div class="p-5">
+<div class="p-5">
+          <h2 class="section-title text-center">CVs</h2>
+
+   @for(cv of CVs ;track $index){
+<a [href]="cvHref(cv)" >
+  <button style="width: 100%;" type="button" class="btn btn-dark btn-lg btn-block m-2">{{cv.title}}</button>
+</a><br>
+}
+</div>
+    </div>
+</div>
+</section>
